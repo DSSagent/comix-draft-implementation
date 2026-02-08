@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class GradedDecorator extends ComicDecorator {
     private int grade;
 
