@@ -20,6 +20,8 @@ public class GradedDecorator extends ComicDecorator {
 
     @Override
     public String getDescription() {
-        return tempComic.getDescription() + " [Grade: " + grade + "]";
+        StringBuilder sb = new StringBuilder(tempComic.getDescription());
+    sb.append(" [Grade: ").append(grade).append("]");
+    return sb.toString();
     }
 }

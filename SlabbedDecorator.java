@@ -15,6 +15,9 @@ public class SlabbedDecorator extends ComicDecorator {
     @Override
     public String getDescription() {
         // Build on the inner description, adding a "Slabbed" indicator
-        return tempComic.getDescription() + " [Slabbed, Grade: " + grade + "]";
+        StringBuilder sb = new StringBuilder(tempComic.getDescription());
+    sb.append(" [Slabbed, Grade: ").append(grade).append("]");
+    return sb.toString();
+        //return tempComic.getDescription() + " [Slabbed, Grade: " + grade + "]";
     }
 }
