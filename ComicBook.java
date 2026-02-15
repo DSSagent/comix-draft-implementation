@@ -28,8 +28,11 @@ public class ComicBook implements Comic {
         StringBuilder sb = new StringBuilder();
         sb.append("[").append(publisher).append("] ")
       .append(seriesTitle).append(", Vol. ").append(volume)
-      .append(" #").append(issue).append(": ").append(storyTitle)
-      .append(" (").append(publicationDate).append(")");
+      .append(" #").append(issue);
+      if (storyTitle != null && !storyTitle.isEmpty()) {  // Check for non-empty
+        sb.append(": ").append(storyTitle);
+      }
+      sb.append(" (").append(publicationDate).append(")");
         return sb.toString();
         // Example output: [Marvel Comics] A-Force, Vol. 1 #1A: Secret Wars (May 20, 2015)
     }

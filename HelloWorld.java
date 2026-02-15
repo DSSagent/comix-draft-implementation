@@ -24,5 +24,12 @@ class AgeCheck {
         System.out.print("Enter your age: ");
         
     }
+    public static void main(String[] args) {
+        if (args.length > 0) {
+            System.out.println("First arg: " + args[0]);  // Run with "java ArgsDemo hello" → Outputs "First arg: hello"
+        } else {
+            System.out.println("No args provided!");
+        }
+    }
 }
 
