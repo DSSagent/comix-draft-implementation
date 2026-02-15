@@ -20,8 +20,12 @@ public class ComicLoader {
         String storyTitle = parts[2].trim();
         String publisher = parts[3].trim();
         String publicationDate = parts[4].trim();
-        double baseValue = 5.0;  // Placeholder; parse from CSV if available
-        
-        return new ComicBook(seriesTitle, volume, issue, storyTitle, publisher, publicationDate, baseValue);
+        String creators = parts.length > 8 ? parts[8] : "";  // Last column from SS
+        String principleCharacters = "";                     // Not in CSV, default empty
+        String description = "";                             // default empty
+        double baseValue = 5.0;  // Still placeholder (req 1.i optional—later compute or edit)
+
+        return new ComicBook(seriesTitle, volume, issue, storyTitle, publisher, publicationDate, 
+                            creators, principleCharacters, description, baseValue);
     }
 }

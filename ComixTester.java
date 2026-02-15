@@ -53,38 +53,41 @@ public class ComixTester {
 
     // Parsing method
     private static Comic parseCsvLine(String csvLine) {
-    // Better split: Use regex to split on commas not inside quotes
-    // This pattern: Split on , surrounded by even quotes (basic quote handling)
-    String[] parts = csvLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-    if (parts.length < 5) return null;  // Now check for at least 5, but there can be up to 9
+        // Better split: Use regex to split on commas not inside quotes
+        // This pattern: Split on , surrounded by even quotes (basic quote handling)
+        String[] parts = csvLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        if (parts.length < 5) return null;  // Now check for at least 5, but there can be up to 9
 
-    // Trim quotes if present (e.g., "\"A-Force, Vol. 1\"" → "A-Force, Vol. 1")
-    for (int i = 0; i < parts.length; i++) {
-        parts[i] = parts[i].trim().replaceAll("^\"|\"$", "");  // Remove leading/trailing quotes
-    }
-
-    String rawSeries = parts[0];  // "A-Force, Vol. 1"
-    String seriesTitle = rawSeries;
-    int volume = 1;
-    if (rawSeries.contains(", Vol. ")) {
-        String[] split = rawSeries.split(", Vol. ");
-        seriesTitle = split[0];
-        if (split.length > 1) {
-            volume = Integer.parseInt(split[1].replaceAll("[^0-9]", ""));  // Clean non-digits
+        // Trim quotes if present (e.g., "\"A-Force, Vol. 1\"" → "A-Force, Vol. 1")
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim().replaceAll("^\"|\"$", "");  // Remove leading/trailing quotes
         }
-    }
-    String issue = parts[1];             // "1A"
-    String storyTitle = parts[2];        // "Secret Wars"
-    // parts[3] = Variant Description (ignore for now, or add to description if needed)
-    String publisher = parts[4];         // "Marvel Comics" (shifted index due to extra columns)
-    String publicationDate = parts[5];   // "May 20, 2015"
-    // parts[6] = Format (e.g., "Comic")
-    // parts[7] = Added Date (ignore)
-    // parts[8] = Creators (add to ComicBook later per req 1.f/2.b.vi)
 
-    double baseValue = 5.0;  // Still placeholder—see next question
+        String rawSeries = parts[0];  // "A-Force, Vol. 1"
+        String seriesTitle = rawSeries;
+        int volume = 1;
+        if (rawSeries.contains(", Vol. ")) {
+            String[] split = rawSeries.split(", Vol. ");
+            seriesTitle = split[0];
+            if (split.length > 1) {
+                volume = Integer.parseInt(split[1].replaceAll("[^0-9]", ""));  // Clean non-digits
+            }
+        }
+        String issue = parts[1];             // "1A"
+        String storyTitle = parts[2];        // "Secret Wars"
+        // parts[3] = Variant Description (ignore for now, or add to description if needed)
+        String publisher = parts[4];         // "Marvel Comics" (shifted index due to extra columns)
+        String publicationDate = parts[5];   // "May 20, 2015"
+        // parts[6] = Format (e.g., "Comic")
+        // parts[7] = Added Date (ignore)
+        // parts[8] = Creators (add to ComicBook later per req 1.f/2.b.vi)
+        String creators = parts.length > 8 ? parts[8] : "";  // Last column from SS
+        String principleCharacters = "";                     // Not in CSV, default empty
+        String description = "";                             // default empty
+        double baseValue = 5.0;  // Still placeholder (req 1.i optional—later compute or edit)
 
-    return new ComicBook(seriesTitle, volume, issue, storyTitle, publisher, publicationDate, baseValue);
+        return new ComicBook(seriesTitle, volume, issue, storyTitle, publisher, publicationDate, 
+                            creators, principleCharacters, description, baseValue);
     }
 
     // Simple search helper (requirement 2.c: partial, case-insensitive)
